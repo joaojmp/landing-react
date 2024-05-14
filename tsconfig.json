@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "jsx": "react-jsx",
+        "strict": true,
+        "isolatedModules": true,
+        "target": "ESNext",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "paths": {
+            "@/*": ["./*"],
+            "@floating-ui/*": ["./node_modules/@floating-ui/*"],
+            "@udecode/*": ["./node_modules/@udecode/*"],
+            "@web/*": ["./app/Web/resources/js/*"],
+            "@cms/*": ["./app/Cms/resources/js/*"]
+        }
+    },
+    "include": [
+        "app/Web/resources/js/**/*.ts",
+        "app/Web/resources/js/**/*.tsx",
+        "app/Web/resources/js/**/*.d.ts",
+        "app/Cms/resources/js/**/*.ts",
+        "app/Cms/resources/js/**/*.tsx",
+        "app/Cms/resources/js/**/*.d.ts"
+    ],
+    "exclude": ["node_modules"]
+}
