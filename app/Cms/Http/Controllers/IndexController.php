@@ -7,7 +7,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Src\Users\UserService;
 use Illuminate\Support\Str;
-use Src\Configs\ConfigService;
 use Illuminate\Support\Facades\Artisan;
 use Google\Analytics\Data\V1beta\Metric;
 use App\Core\Http\Controllers\Controller;
@@ -114,8 +113,6 @@ class IndexController extends Controller
 
             Artisan::call("down --secret='$secret' --render='web::pages.maintenance'");
 
-            (new ConfigService)->update("maintenance_secret", $secret);
-
             return response("Maintenance mode on! Secret: $secret");
         } catch (Exception $e) {
             return $this->badRequest($e->getMessage());
@@ -135,8 +132,6 @@ class IndexController extends Controller
 
         try {
             Artisan::call("up");
-
-            (new ConfigService)->update("maintenance_secret", null);
 
             return response("Maintenance mode off!");
         } catch (Exception $e) {

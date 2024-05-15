@@ -40,7 +40,6 @@ class Kernel extends HttpKernel
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
 
             \App\Core\Http\Middleware\Https::class,
-            \App\Core\Http\Middleware\Layout::class,
             \App\Core\Http\Middleware\SecurityHeaders::class,
         ],
 

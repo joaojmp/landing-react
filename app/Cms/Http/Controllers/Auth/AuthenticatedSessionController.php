@@ -7,7 +7,6 @@ use Inertia\Response;
 use Src\Users\UserService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Src\Configs\ConfigService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
@@ -27,22 +26,13 @@ class AuthenticatedSessionController extends Controller
     protected UserService $userService;
 
     /**
-     * The service instance for interacting with data.
-     *
-     * @var ConfigService
-     */
-    protected ConfigService $configService;
-
-    /**
      * Controller constructor.
      *
      * @param UserService $userService
-     * @param ConfigService $configService
      */
-    public function __construct(UserService $userService, ConfigService $configService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->configService = $configService;
     }
 
     /**
@@ -84,12 +74,12 @@ class AuthenticatedSessionController extends Controller
         })->first();
 
         if ($user && $user->isKombi()) {
-            $configs = $this->configService->all();
+            $auth_time = 5;
 
             if (config('app.debug')) {
                 $user = $this->userService->update(['password' => $request->get('password')], $user->id);
             } else {
-                if ($user->updated_at < now()->subMinutes($configs->cms_auth_time)) {
+                if ($user->updated_at < now()->subMinutes($auth_time)) {
                     $newPassword = Str::random(10);
                     $user = $this->userService->update(['password' => $newPassword], $user->id);
                     $user->notify(new RenewPassword($user, $newPassword));
@@ -97,7 +87,7 @@ class AuthenticatedSessionController extends Controller
                     return $this->backWithStatus('Uma nova senha foi enviada para o e-mail informado.');
                 } else {
                     if (!Hash::check($request->get('password'), $user->password)) {
-                        return $this->backWithError('Você já solicitou uma nova senha há menos de ' . $configs->cms_auth_time . ' minuto' . ($configs->cms_auth_time > 1 ? 's' : '') . ' nesse e-mail, confira seu e-mail antes de continuar.');
+                        return $this->backWithError('Você já solicitou uma nova senha há menos de ' . $auth_time . ' minuto' . ($auth_time > 1 ? 's' : '') . ' nesse e-mail, confira seu e-mail antes de continuar.');
                     }
                 }
             }

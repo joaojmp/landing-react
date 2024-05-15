@@ -27,9 +27,5 @@ class ServiceProvider extends BaseServiceProvider
         Route::prefix("api/cms")
             ->middleware(["api", "auth:api"])
             ->group(__DIR__ . "/routes/cms.php");
-
-        Route::prefix("api")
-            ->middleware(["web", "api"])
-            ->group(__DIR__ . "/routes/web.php");
     }
 }

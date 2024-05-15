@@ -1,16 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Api\Http\Controllers\LeadsController;
-use App\Api\Http\Controllers\LinksController;
-use App\Api\Http\Controllers\PagesController;
 use App\Api\Http\Controllers\UsersController;
-use App\Api\Http\Controllers\BannersController;
-use App\Api\Http\Controllers\PoliciesController;
-use App\Api\Http\Controllers\Posts\PostsController;
-use App\Api\Http\Controllers\Posts\ImagesController;
-use App\Api\Http\Controllers\Posts\SubjectsController;
-use App\Api\Http\Controllers\Posts\DescriptionsController;
+use App\Api\Http\Controllers\LandingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,43 +15,7 @@ use App\Api\Http\Controllers\Posts\DescriptionsController;
 |
 */
 
-Route::put("/banners/reorder", [BannersController::class, "reorder"])->name("api.banners.reorder");
-Route::apiResource("/banners", BannersController::class, [
-    'as' => 'api'
-]);
-
-Route::put("/posts/subjects/reorder", [SubjectsController::class, "reorder"])->name("api.subjects.reorder");
-Route::apiResource("/posts/subjects", SubjectsController::class, [
-    'as' => 'api'
-]);
-
-Route::put("/posts/descriptions/reorder", [DescriptionsController::class, "reorder"])->name("api.descriptions.reorder");
-Route::apiResource("/posts/descriptions", DescriptionsController::class, [
-    'as' => 'api'
-]);
-
-Route::put("/posts/images/reorder", [ImagesController::class, "reorder"])->name("api.posts.images.reorder");
-Route::apiResource("/posts/images", ImagesController::class, [
-    'as' => 'api.posts'
-]);
-
-Route::apiResource("/posts", PostsController::class, [
-    'as' => 'api'
-]);
-
-Route::apiResource("/leads", LeadsController::class, [
-    'as' => 'api'
-]);
-
-Route::apiResource("/links", LinksController::class, [
-    'as' => 'api'
-]);
-
-Route::apiResource("/pages", PagesController::class, [
-    'as' => 'api'
-]);
-
-Route::apiResource("/policies", PoliciesController::class, [
+Route::apiResource("/landings", LandingsController::class, [
     'as' => 'api'
 ]);
 
