@@ -21,7 +21,6 @@
 <meta name="DC.publisher" content="{{ config('app.name') }}" />
 <meta name="twitter:card" content="summary">
 
-<meta property="og:image" content="{{ $meta_image . '?id=' . time() }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ request()->url() }}" />
 <meta property="og:site_name" content="{{ config('app.name') }}" />

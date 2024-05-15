@@ -171,9 +171,9 @@ return [
         App\Core\Providers\RouteServiceProvider::class,
 
         App\Api\ServiceProvider::class,
-        App\Web\ServiceProvider::class,
         App\Cms\ServiceProvider::class,
-    ])->toArray(),
+        App\Web\ServiceProvider::class,
+        ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

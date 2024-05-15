@@ -1,15 +1,14 @@
 import { Head } from "@inertiajs/react";
+import { Landing } from "@/src/Landings/Types/Landing";
 
-import GrapeJsEditor from "../Components/GrapeJsEditor";
-
-export default function Index() {
+export default function Index({ landing }: { landing: Landing; }) {
     return (
         <>
             <Head>
-                <title>Gerador de LP</title>
+                <title>{landing.title}</title>
             </Head>
 
-            <GrapeJsEditor />
+            {landing.content}
         </>
     );
 };

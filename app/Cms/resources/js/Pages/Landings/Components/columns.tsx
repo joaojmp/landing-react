@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { Link, router } from "@inertiajs/react";
+import { MdEditDocument } from "react-icons/md";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@cms/Components/ui/button";
@@ -92,6 +93,20 @@ export const columns: ColumnDef<Landing>[] = [
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button type="button" variant="ghost" asChild>
+                                    <Link href={route("landings.editor", { "id": landing.id })}>
+                                        <MdEditDocument />
+                                    </Link>
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Abrir editor de página</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </>
             )
         },

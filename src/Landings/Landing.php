@@ -11,7 +11,7 @@ class Landing extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        "slug", "title", "code",
+        "slug", "title", "content",
     ];
 
 

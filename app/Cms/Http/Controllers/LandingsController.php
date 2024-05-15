@@ -4,6 +4,9 @@ namespace App\Cms\Http\Controllers;
 
 use Src\Landings\LandingService;
 use App\Cms\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class LandingsController extends Controller
 {
@@ -49,5 +52,21 @@ class LandingsController extends Controller
     protected function path(): string
     {
         return "Landings";
+    }
+
+    /**
+     * Open editor page
+     *
+     * @return Response|RedirectResponse
+     */
+    public function editor(int $id): Response|RedirectResponse
+    {
+        $landing = $this->service->find($id);
+
+        if (!$landing) {
+            return redirect()->route('leadings.index');
+        }
+
+        return Inertia::render($this->path() . '/Editor', ['landing' => $landing]);
     }
 }

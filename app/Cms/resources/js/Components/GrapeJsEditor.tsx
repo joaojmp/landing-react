@@ -1,18 +1,18 @@
 import { useEffect, useRef } from 'react';
 
+import axios from 'axios';
 import grapesjs from 'grapesjs';
 import plugin from 'grapesjs-blocks-basic';
 
 // @ts-expect-error
 import pt from 'grapesjs/locale/pt';
+import { User } from '@/src/Users/Types/User';
+import { Landing } from '@/src/Landings/Types/Landing';
 
 import 'grapesjs/dist/css/grapes.min.css';
 
-const GrapeJsEditor = () => {
+const GrapeJsEditor = ({ landing, user }: { landing: Landing; user: User; }) => {
     const editorRef = useRef<HTMLDivElement | null>(null);
-
-    const projectID = 1;
-    const projectEndpoint = `./projects/${projectID}`;
 
     useEffect(() => {
         const editor = grapesjs.init({
@@ -22,15 +22,6 @@ const GrapeJsEditor = () => {
             width: "100vw",
             storageManager: {
                 type: 'remote',
-                options: {
-                    remote: {
-                        urlLoad: projectEndpoint,
-                        urlStore: projectEndpoint,
-                        fetchOptions: opts => (opts.method === 'POST' ? { method: 'PATCH' } : {}),
-                        onStore: data => ({ id: projectID, data }),
-                        onLoad: result => result.data,
-                    },
-                },
             },
             i18n: {
                 locale: 'pt',
@@ -52,6 +43,26 @@ const GrapeJsEditor = () => {
                     labelMap: 'Mapa',
                 }),
             ],
+        });
+
+        editor.Storage.add('remote', {
+            async load() {
+                const response = await axios.get(route('api.landings.show', landing.id), {
+                    headers: {
+                        'Authorization': `Bearer ${user.api_token}`,
+                    }
+                });
+
+                return JSON.parse(response?.data?.content);
+            },
+
+            async store(data) {
+                return await axios.patch(route('api.landings.update', landing.id), { data }, {
+                    headers: {
+                        'Authorization': `Bearer ${user.api_token}`,
+                    }
+                });
+            },
         });
 
         return () => {
