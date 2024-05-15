@@ -8,7 +8,7 @@ export default function Index({ landing }: { landing: Landing; }) {
                 <title>{landing.title}</title>
             </Head>
 
-            {landing.content}
+            <div dangerouslySetInnerHTML={{ __html: landing.html }} />
         </>
     );
 };

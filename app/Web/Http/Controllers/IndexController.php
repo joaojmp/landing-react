@@ -33,6 +33,8 @@ class IndexController extends Controller
             return Inertia::render('NotFound');
         }
 
+        view()->share('landing', $landing);
+
         return Inertia::render('Index', ['landing' => $landing]);
     }
 }

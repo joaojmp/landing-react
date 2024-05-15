@@ -173,7 +173,7 @@ return [
         App\Api\ServiceProvider::class,
         App\Cms\ServiceProvider::class,
         App\Web\ServiceProvider::class,
-        ])->toArray(),
+    ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

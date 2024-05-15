@@ -36,7 +36,9 @@ class LandingsController extends Controller
 
         try {
             $object = $this->service->update([
-                "content" => $request->get('data')
+                "content" => $request->get('content'),
+                "html" => $request->get('html'),
+                "css" => $request->get('css')
             ], $id);
 
             return $this->json($object);

@@ -57,7 +57,11 @@ const GrapeJsEditor = ({ landing, user }: { landing: Landing; user: User; }) => 
             },
 
             async store(data) {
-                return await axios.patch(route('api.landings.update', landing.id), { data }, {
+                return await axios.patch(route('api.landings.update', landing.id), {
+                    content: data,
+                    html: editor.getHtml(),
+                    css: editor.getCss(),
+                }, {
                     headers: {
                         'Authorization': `Bearer ${user.api_token}`,
                     }

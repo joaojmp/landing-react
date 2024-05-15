@@ -4,6 +4,10 @@
 <head>
     @include('web::_metas-head')
 
+    <style rel="preload stylesheet">
+        {{ $landing->css }}
+    </style>
+
     <!-- Scripts -->
     @routes(nonce: Vite::cspNonce())
     @viteReactRefresh
