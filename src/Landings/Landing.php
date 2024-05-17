@@ -29,4 +29,24 @@ class Landing extends Model
         $this->attributes["title"] = $value;
         $this->attributes["slug"] = Str::slug($value);
     }
+
+    public function setHtmlAttribute(string $value): void
+    {
+        $this->attributes["html"] = $value ? urlencode($value) : null;
+    }
+
+    public function setCssAttribute(string $value): void
+    {
+        $this->attributes["css"] = $value ? json_encode($value) : null;
+    }
+
+    public function getHtmlAttribute(): string
+    {
+        return json_decode($this->attributes["html"], true);
+    }
+
+    public function getCssAttribute(): string
+    {
+        return json_decode($this->attributes["css"], true);
+    }
 }

@@ -97,9 +97,9 @@ export const columns: ColumnDef<Landing>[] = [
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button type="button" variant="ghost" asChild>
-                                    <Link href={route("landings.editor", { "id": landing.id })}>
+                                    <a href={route("landings.editor", { "id": landing.id })} target="_blank">
                                         <MdEditDocument />
-                                    </Link>
+                                    </a>
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>

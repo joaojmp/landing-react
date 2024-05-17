@@ -2,7 +2,17 @@ import { useEffect, useRef } from 'react';
 
 import axios from 'axios';
 import grapesjs from 'grapesjs';
-import plugin from 'grapesjs-blocks-basic';
+import grapesjsnavbar from 'grapesjs-navbar';
+import grapesjsStyleBg from 'grapesjs-style-bg';
+import grapesjsBlocksBasic from 'grapesjs-blocks-basic';
+import grapesjsPluginForms from 'grapesjs-plugin-forms';
+import grapesjsStyleFilter from 'grapesjs-style-filter';
+import grapesjsPresetWebpage from 'grapesjs-preset-webpage';
+import grapesjsStyleGradient from 'grapesjs-style-gradient';
+import grapesjsBlocksFlexbox from 'grapesjs-blocks-flexbox';
+import grapesjsPluginCkeditor from 'grapesjs-plugin-ckeditor';
+import grapesjsTuiImageEditor from 'grapesjs-tui-image-editor';
+import grapesjsComponentCountdown from 'grapesjs-component-countdown';
 
 // @ts-expect-error
 import pt from 'grapesjs/locale/pt';
@@ -31,7 +41,17 @@ const GrapeJsEditor = ({ landing, user }: { landing: Landing; user: User; }) => 
                 }
             },
             plugins: [
-                editor => plugin(editor, {
+                grapesjsComponentCountdown,
+                grapesjsPluginCkeditor,
+                grapesjsTuiImageEditor,
+                grapesjsBlocksFlexbox,
+                grapesjsStyleGradient,
+                grapesjsPresetWebpage,
+                grapesjsStyleFilter,
+                grapesjsPluginForms,
+                grapesjsStyleBg,
+                grapesjsnavbar,
+                editor => grapesjsBlocksBasic(editor, {
                     category: 'Basico',
                     labelColumn1: '1 Coluna',
                     labelColumn2: '2 Colunas',
@@ -43,6 +63,15 @@ const GrapeJsEditor = ({ landing, user }: { landing: Landing; user: User; }) => 
                     labelMap: 'Mapa',
                 }),
             ],
+            pluginsOpts: {
+                'grapesjs-tui-image-editor': {
+                    config: {
+                        includeUI: {
+                            initMenu: 'filter',
+                        },
+                    },
+                }
+            },
         });
 
         editor.Storage.add('remote', {

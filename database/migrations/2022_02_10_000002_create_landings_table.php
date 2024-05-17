@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('slug');
             $table->string('title')->unique();
-            $table->text('content')->nullable();
-            $table->text('html')->nullable();
-            $table->text('css')->nullable();
+            $table->json('content')->nullable();
+            $table->json('html')->nullable();
+            $table->json('css')->nullable();
             $table->timestamps();
         });
     }
