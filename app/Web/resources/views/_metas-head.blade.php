@@ -5,8 +5,8 @@
 
 <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-<link rel="shortcut icon" href="{{ asset('images/favicon.webp') . '?id=' . time() }}">
-<link rel="apple-touch-icon" href="{{ asset('images/favicon.webp') . '?id=' . time() }}" />
+<link rel="shortcut icon" href="{{ $favicon }}">
+<link rel="apple-touch-icon" href="{{ $favicon }}" />
 
 <link rel="canonical" href="{{ request()->url() }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,6 +21,7 @@
 <meta name="DC.publisher" content="{{ config('app.name') }}" />
 <meta name="twitter:card" content="summary">
 
+<meta property="og:image" content="{{ $meta_image }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ request()->url() }}" />
 <meta property="og:site_name" content="{{ config('app.name') }}" />

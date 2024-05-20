@@ -2,11 +2,11 @@
 
 namespace App\Cms\Http\Controllers;
 
-use Src\Landings\LandingService;
-use App\Cms\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use Src\Landings\LandingService;
+use Illuminate\Http\RedirectResponse;
+use App\Cms\Http\Controllers\Controller;
 
 class LandingsController extends Controller
 {
@@ -16,7 +16,13 @@ class LandingsController extends Controller
      * @var array
      */
     protected array $validationAttributes = [
-        "title" => "título",
+        "title" => "título da página",
+        "description" => "descrição da página",
+        "image" => "imagem de compartilhamento",
+        "favicon" => "ícone da página",
+        "emails" => "e-mails",
+        "script_head" => "script tag head",
+        "script_body" => "script tag body",
     ];
 
     /**
@@ -41,6 +47,12 @@ class LandingsController extends Controller
     {
         return [
             "title" => "required|max:191|unique:landings" . ($action === "create" ? "" : ",title," . $id),
+            "description" => "nullable|string",
+            "image" => "nullable|mimes:jpg,jpeg,png,webp|max:2000",
+            "favicon" => "nullable|mimes:jpg,jpeg,png,webp|max:2000",
+            "emails" => "nullable|array",
+            "script_head" => "nullable|string",
+            "script_body" => "nullable|string",
         ];
     }
 

@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('slug');
             $table->string('title')->unique();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('favicon')->nullable();
+            $table->text('emails')->nullable();
+            $table->text('script_head')->nullable();
+            $table->text('script_body')->nullable();
             $table->json('content')->nullable();
             $table->json('html')->nullable();
             $table->json('css')->nullable();

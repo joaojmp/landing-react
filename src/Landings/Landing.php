@@ -11,42 +11,46 @@ class Landing extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        "slug", "title", "content", "html", "css",
+        "slug", "title", "description", "image", "favicon", "emails", "script_head", "script_body", "content", "html", "css",
     ];
 
 
     // Getters and Setters
 
-    /**
-     * Set the title attribute and automatically generate a slug.
-     *
-     * @param string $value The value of the "title" attribute.
-     * 
-     * @return void
-     */
+    public function getEmailsAttribute(?string $value): ?array
+    {
+        return is_null($value) ? $value : explode(",", $value);
+    }
+
+    public function getHtmlAttribute(?string $value): ?string
+    {
+        return is_null($value) ? $value : json_decode($value, true);
+    }
+
+    public function getCssAttribute(?string $value): ?string
+    {
+        return is_null($value) ? $value : json_decode($value, true);
+    }
+
+
     public function setTitleAttribute(string $value): void
     {
         $this->attributes["title"] = $value;
         $this->attributes["slug"] = Str::slug($value);
     }
 
-    public function setHtmlAttribute(string $value): void
+    public function setEmailsAttribute(?array $value): void
     {
-        $this->attributes["html"] = $value ? urlencode($value) : null;
+        $this->attributes["emails"] = is_null($value) ? $value : implode(",", $value);
     }
 
-    public function setCssAttribute(string $value): void
+    public function setHtmlAttribute(?string $value): void
     {
-        $this->attributes["css"] = $value ? json_encode($value) : null;
+        $this->attributes["html"] = is_null($value) ? $value : json_encode($value);
     }
 
-    public function getHtmlAttribute(): string
+    public function setCssAttribute(?string $value): void
     {
-        return json_decode($this->attributes["html"], true);
-    }
-
-    public function getCssAttribute(): string
-    {
-        return json_decode($this->attributes["css"], true);
+        $this->attributes["css"] = is_null($value) ? $value : json_encode($value);
     }
 }

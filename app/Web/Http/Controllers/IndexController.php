@@ -30,7 +30,7 @@ class IndexController extends Controller
         $landing = $this->service->findBySlug($slug);
 
         if (!$landing) {
-            return Inertia::render('NotFound');
+            return abort(404);
         }
 
         view()->share('landing', $landing);

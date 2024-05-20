@@ -34,13 +34,13 @@ class SecurityHeaders
 
         // $response->header("Content-Security-Policy", "base-uri $baseUri; default-src $defaultSrc; img-src $imgSrc; script-src $scriptSrc; style-src $styleSrc; font-src $fontSrc; connect-src $connectSrc; frame-src $frameSrc; frame-ancestors $frameAncestors");
 
-        // $response->header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+        $response->header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
 
-        // $response->header("X-Content-Type-Options", "nosniff");
+        $response->header("X-Content-Type-Options", "nosniff");
 
-        // $response->header("X-Frame-Options", "DENY");
+        $response->header("X-Frame-Options", "DENY");
 
-        // $response->header("X-XSS-Protection", "1; mode=block");
+        $response->header("X-XSS-Protection", "1; mode=block");
 
         return $response;
     }

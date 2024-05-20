@@ -6,9 +6,10 @@ export default function Index({ landing }: { landing: Landing; }) {
         <>
             <Head>
                 <title>{landing.title}</title>
+                <meta name="description" content={landing.description} />
             </Head>
 
-            <div dangerouslySetInnerHTML={{ __html: landing.html }} />
+            <div dangerouslySetInnerHTML={{ __html: landing.html || "" }} />
         </>
     );
 };
