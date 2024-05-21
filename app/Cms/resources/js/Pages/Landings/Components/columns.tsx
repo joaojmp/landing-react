@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { Link, router } from "@inertiajs/react";
 import { MdEditDocument } from "react-icons/md";
+import { IoOpenOutline } from "react-icons/io5";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@cms/Components/ui/button";
@@ -104,6 +105,20 @@ export const columns: ColumnDef<Landing>[] = [
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Abrir editor de página</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button type="button" variant="ghost" asChild>
+                                    <a href={route("web.home", { "slug": landing.slug })} target="_blank">
+                                        <IoOpenOutline />
+                                    </a>
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Abrir página</p>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>

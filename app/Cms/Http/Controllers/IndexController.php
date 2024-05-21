@@ -7,12 +7,14 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Src\Users\UserService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
 use Google\Analytics\Data\V1beta\Metric;
 use App\Core\Http\Controllers\Controller;
 use Google\Analytics\Data\V1beta\DateRange;
 use Google\Analytics\Data\V1beta\Dimension;
 use Illuminate\Http\Response as HttpResponse;
+use Google\Analytics\Data\V1beta\RunReportResponse;
 use Google\Analytics\Data\V1beta\BetaAnalyticsDataClient;
 
 class IndexController extends Controller
@@ -139,36 +141,65 @@ class IndexController extends Controller
         }
     }
 
-    protected function initializeAnalytics()
+    /**
+     * Initializes the Google Analytics client.
+     *
+     * @return BetaAnalyticsDataClient
+     */
+    protected function initializeAnalytics(): BetaAnalyticsDataClient
     {
         return new BetaAnalyticsDataClient([
             'credentials' => __DIR__ . "/../../../../service-account.json"
         ]);
     }
 
-    protected function getReport($analytics)
+    /**
+     * Fetches the report data from Google Analytics.
+     *
+     * @param BetaAnalyticsDataClient $analytics
+     * 
+     * @return array
+     */
+    protected function getReport(BetaAnalyticsDataClient $analytics): array
     {
-        $response = $analytics->runReport([
-            'property' => 'properties/' . config('services.google.analytics.property_id'),
-            'dateRanges' => [
-                new DateRange([
-                    'start_date' => '7daysAgo',
-                    'end_date' => 'today',
-                ]),
-            ],
-            'dimensions' => [
-                new Dimension(['name' => 'date']),
-            ],
-            'metrics' => [
-                new Metric(['name' => 'sessions']),
-                new Metric(['name' => 'activeUsers'])
-            ]
-        ]);
+        try {
+            $response = $analytics->runReport([
+                'property' => 'properties/' . config('services.google.analytics.property_id'),
+                'dateRanges' => [
+                    new DateRange([
+                        'start_date' => '7daysAgo',
+                        'end_date' => 'today',
+                    ]),
+                ],
+                'dimensions' => [
+                    new Dimension(['name' => 'date']),
+                ],
+                'metrics' => [
+                    new Metric(['name' => 'sessions']),
+                    new Metric(['name' => 'activeUsers'])
+                ]
+            ]);
 
-        return self::parseReportResponse($response);
+            return self::parseReportResponse($response);
+        } catch (Exception $e) {
+            if (config('app.debug')) {
+                dd($e);
+            } else {
+                Log::error($e->getMessage());
+            }
+
+            return [["name" => date("d/m/Y", strtotime("-6days")), "Sessões" => rand(5, 50), "Usuários" => rand(10, 70)]];
+        }
     }
 
-    protected function parseReportResponse($reports)
+    /**
+     * Parses the report response into a formatted array.
+     *
+     * @param RunReportResponse $reports
+     * 
+     * @return array
+     */
+    protected function parseReportResponse(RunReportResponse $reports): array
     {
         $parsed = [];
 
@@ -192,28 +223,52 @@ class IndexController extends Controller
         return $parsed;
     }
 
-    protected function getChannelGrouping($analytics)
+    /**
+     * Fetches the channel grouping data from Google Analytics.
+     *
+     * @param BetaAnalyticsDataClient $analytics
+     * 
+     * @return array
+     */
+    protected function getChannelGrouping(BetaAnalyticsDataClient $analytics): array
     {
-        $response = $analytics->runReport([
-            'property' => 'properties/' . config('services.google.analytics.property_id'),
-            'dateRanges' => [
-                new DateRange([
-                    'start_date' => '7daysAgo',
-                    'end_date' => 'today',
-                ]),
-            ],
-            'dimensions' => [
-                new Dimension(['name' => 'sessionDefaultChannelGrouping']),
-            ],
-            'metrics' => [
-                new Metric(['name' => 'activeUsers']),
-            ]
-        ]);
+        try {
+            $response = $analytics->runReport([
+                'property' => 'properties/' . config('services.google.analytics.property_id'),
+                'dateRanges' => [
+                    new DateRange([
+                        'start_date' => '7daysAgo',
+                        'end_date' => 'today',
+                    ]),
+                ],
+                'dimensions' => [
+                    new Dimension(['name' => 'sessionDefaultChannelGrouping']),
+                ],
+                'metrics' => [
+                    new Metric(['name' => 'activeUsers']),
+                ]
+            ]);
 
-        return self::parseChannelGroupingResponse($response);
+            return self::parseChannelGroupingResponse($response);
+        } catch (Exception $e) {
+            if (config('app.debug')) {
+                dd($e);
+            } else {
+                Log::error($e->getMessage());
+            }
+
+            return [["name" => "Group A", "value" => rand(5, 50)]];
+        }
     }
 
-    protected function parseChannelGroupingResponse($reports)
+    /**
+     * Parses the channel grouping response into a formatted array.
+     *
+     * @param RunReportResponse $reports
+     * 
+     * @return array
+     */
+    protected function parseChannelGroupingResponse(RunReportResponse $reports): array
     {
         $parsed = [];
 
