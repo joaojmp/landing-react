@@ -10,7 +10,6 @@ import grapesjsStyleFilter from 'grapesjs-style-filter';
 import grapesjsPresetWebpage from 'grapesjs-preset-webpage';
 import grapesjsStyleGradient from 'grapesjs-style-gradient';
 import grapesjsBlocksFlexbox from 'grapesjs-blocks-flexbox';
-import grapesjsPluginCkeditor from 'grapesjs-plugin-ckeditor';
 import grapesjsTuiImageEditor from 'grapesjs-tui-image-editor';
 import grapesjsComponentCountdown from 'grapesjs-component-countdown';
 
@@ -42,7 +41,6 @@ const GrapeJsEditor = ({ landing, user }: { landing: Landing; user: User; }) => 
             },
             plugins: [
                 grapesjsComponentCountdown,
-                grapesjsPluginCkeditor,
                 grapesjsTuiImageEditor,
                 grapesjsBlocksFlexbox,
                 grapesjsStyleGradient,
