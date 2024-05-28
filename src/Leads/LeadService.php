@@ -30,7 +30,9 @@ class LeadService extends Service
     {
         $lead = parent::create($attributes);
 
-        Mail::queue(new Contact($lead));
+        if (count($lead->landing->emails)) {
+            Mail::queue(new Contact($lead));
+        }
 
         return $lead;
     }
