@@ -12,10 +12,46 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 export const columns: ColumnDef<Lead>[] = [
     {
-        accessorKey: "title",
+        accessorKey: "landing_id",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Título" />
+            <DataTableColumnHeader column={column} title="Página" />
         ),
+        cell: ({ row }: any) => {
+            return row.original.landing.title;
+        }
+    },
+    {
+        accessorKey: "data",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Campo 1" />
+        ),
+        cell: ({ row }: any) => {
+            const lead = row.original;
+
+            return Object.values(lead.data)[0] ?? "";
+        }
+    },
+    {
+        accessorKey: "data",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Campo 2" />
+        ),
+        cell: ({ row }: any) => {
+            const lead = row.original;
+
+            return Object.values(lead.data)[1] ?? "";
+        }
+    },
+    {
+        accessorKey: "data",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Campo 3" />
+        ),
+        cell: ({ row }: any) => {
+            const lead = row.original;
+
+            return Object.values(lead.data)[2] ?? "";
+        }
     },
     {
         id: "actions",

@@ -2,6 +2,8 @@
 
 namespace App\Cms\Http\Controllers;
 
+use Inertia\Inertia;
+use Inertia\Response;
 use Src\Leads\LeadService;
 use App\Cms\Http\Controllers\Controller;
 
@@ -25,5 +27,28 @@ class LeadsController extends Controller
     protected function path(): string
     {
         return "Leads";
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index(): Response
+    {
+        $response = [];
+        $objects = $this->service->with("landing")->get();
+
+        if ($objects) {
+            $response['objects'] = $objects;
+        }
+
+        if (!empty($this->includes)) {
+            foreach ($this->includes as $attribute => $model) {
+                $response[$attribute] = $model::all();
+            }
+        }
+
+        return Inertia::render($this->path() . '/All', $response);
     }
 }
