@@ -71,15 +71,9 @@ class Landing extends Model
     }
 
 
-    public function setTitleAttribute(string $value): void
-    {
-        $this->attributes["title"] = $value;
-        $this->attributes["slug"] = Str::slug($value);
-    }
-
     public function setEmailsAttribute(?array $value): void
     {
-        $this->attributes["emails"] = is_null($value) ? $value : implode(",", $value);
+        $this->attributes["emails"] = $value && count($value) ? implode(",", $value) : null;
     }
 
     public function setHtmlAttribute(?string $value): void

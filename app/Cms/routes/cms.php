@@ -21,6 +21,7 @@ Route::get('/', [IndexController::class, "index"])->name("cms.home");
 
 Route::resource('/landings', LandingsController::class);
 Route::get('/landings/{id}/editor', [LandingsController::class, "editor"])->name("landings.editor");
+Route::get('/landings/{id}/clone', [LandingsController::class, "clone"])->name("landings.clone");
 
 Route::resource('/leads', LeadsController::class);
 

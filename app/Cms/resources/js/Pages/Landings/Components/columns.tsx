@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { Link, router } from "@inertiajs/react";
 import { MdEditDocument } from "react-icons/md";
-import { IoOpenOutline } from "react-icons/io5";
+import { IoDuplicate, IoOpenOutline } from "react-icons/io5";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@cms/Components/ui/button";
@@ -108,6 +108,38 @@ export const columns: ColumnDef<Landing>[] = [
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
+                    <AlertDialog>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <AlertDialogTrigger asChild>
+                                    <TooltipTrigger asChild>
+                                        <Button type="button" variant="ghost">
+                                            <IoDuplicate />
+                                        </Button>
+                                    </TooltipTrigger>
+                                </AlertDialogTrigger>
+                                <TooltipContent>
+                                    <p>Clonar página</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Você deseja clonar essa landing?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Todos os dados serão duplicados para um novo cadastro.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                <AlertDialogAction asChild>
+                                    <Link href={route("landings.clone", { "id": landing.id })}>
+                                        Continuar
+                                    </Link>
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
