@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Cms\Http\Controllers\IndexController;
+use App\Cms\Http\Controllers\LeadsController;
 use App\Cms\Http\Controllers\UsersController;
 use App\Cms\Http\Controllers\LandingsController;
 
@@ -20,6 +21,8 @@ Route::get('/', [IndexController::class, "index"])->name("cms.home");
 
 Route::resource('/landings', LandingsController::class);
 Route::get('/landings/{id}/editor', [LandingsController::class, "editor"])->name("landings.editor");
+
+Route::resource('/leads', LeadsController::class);
 
 Route::resource('/users', UsersController::class);
 Route::put("/users/{id}/{file}", [UsersController::class, "destroyFile"])->name("users.file");

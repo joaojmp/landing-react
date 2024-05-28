@@ -24,6 +24,7 @@ return new class extends Migration
             $table->json('content')->nullable();
             $table->json('html')->nullable();
             $table->json('css')->nullable();
+            $table->json('js')->nullable();
             $table->timestamps();
         });
     }

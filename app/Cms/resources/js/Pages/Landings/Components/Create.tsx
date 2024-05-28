@@ -156,7 +156,7 @@ export default function Create() {
                                     <ReactSelect
                                         label='E-mail de contato'
                                         name='emails'
-                                        list={[]}
+                                        list={data.emails?.map((email: string) => ({ value: email, label: email })) ?? []}
                                         value={data.emails}
                                         disabled={processing}
                                         error={errors.emails}

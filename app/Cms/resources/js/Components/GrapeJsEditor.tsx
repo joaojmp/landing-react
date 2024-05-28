@@ -90,6 +90,7 @@ const GrapeJsEditor = ({ landing, user }: { landing: Landing; user: User; }) => 
                     content: data,
                     html: editor.getHtml(),
                     css: editor.getCss(),
+                    js: editor.getJs(),
                 }, {
                     headers: {
                         'Authorization': `Bearer ${user.api_token}`,

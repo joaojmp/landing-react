@@ -26,12 +26,12 @@
     @endisset
 </head>
 
-<body id="imog" class="font-sans antialiased">
-    @isset($landing)
-        {!! $landing->script_body !!}
-    @endisset
+{!! $landing->body ?? '<body>' !!}
+@isset($landing)
+    {!! $landing->script_body !!}
+@endisset
 
-    @inertia
+@inertia
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-import { FaUsers } from "react-icons/fa";
 import { RiPagesLine } from "react-icons/ri";
+import { FaEnvelope, FaUsers } from "react-icons/fa";
 
 export type NavItem = {
     title: string;
@@ -18,7 +18,11 @@ export const menu: NavItem[] = [
         link: route("landings.index"),
         icon: <RiPagesLine className="flex-none" />,
     },
-
+    {
+        title: "Leads",
+        link: route("leads.index"),
+        icon: <FaEnvelope className="flex-none" />,
+    },
     {
         title: "Usuários",
         link: route("users.index"),

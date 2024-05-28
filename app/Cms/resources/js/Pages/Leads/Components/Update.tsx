@@ -253,7 +253,7 @@ export default function Update({ object }: { object: Landing }) {
                             <ReactSelect
                                 label='E-mail de contato'
                                 name='emails'
-                                list={data.emails?.map((email: string) => ({ value: email, label: email })) ?? []}
+                                list={[]}
                                 value={data.emails}
                                 disabled={processing}
                                 error={errors.emails}

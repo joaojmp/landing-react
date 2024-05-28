@@ -1,3 +1,5 @@
+import { Lead } from "../../Leads/Types/Lead";
+
 export type Landing = {
     id: number;
     slug: string;
@@ -11,4 +13,6 @@ export type Landing = {
     content?: string;
     html?: string;
     css?: string;
+    js?: string;
+    leads: Lead[];
 }

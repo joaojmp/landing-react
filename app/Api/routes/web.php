@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Api\Http\Controllers\LeadsController;
-use App\Api\Http\Controllers\UsersController;
-use App\Api\Http\Controllers\LandingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +14,4 @@ use App\Api\Http\Controllers\LandingsController;
 |
 */
 
-Route::apiResource("/landings", LandingsController::class, [
-    'as' => 'api'
-]);
-
-Route::apiResource("/leads", LeadsController::class, [
-    'as' => 'api'
-]);
-
-Route::apiResource("/users", UsersController::class, [
-    'as' => 'api'
-]);
+Route::post("/leads", [LeadsController::class, "store"])->name("api.leads.store");
