@@ -3,6 +3,7 @@
 namespace Src\Landings;
 
 use Src\Service;
+use Src\Leads\LeadService;
 use Src\Landings\LandingRepository;
 
 class LandingService extends Service
@@ -54,5 +55,27 @@ class LandingService extends Service
     protected function repository(): string
     {
         return LandingRepository::class;
+    }
+
+    /**
+     * Delete a record from the database and associated files.
+     *
+     * @param int $id
+     * 
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $landing = $this->repository->with("leads")->find($id);
+
+        if ($landing->leads->count()) {
+            $leadService = new LeadService();
+
+            foreach ($landing->leads as $lead) {
+                $leadService->delete($lead->id);
+            }
+        }
+
+        parent::delete($id);
     }
 }
