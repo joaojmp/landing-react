@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Leads;
+namespace Src\Landings\Services;
 
 use Src\Service;
-use Src\Leads\Mail\Contact;
-use Src\Leads\LeadRepository;
+use Src\Landings\Mail\Contact;
 use Illuminate\Support\Facades\Mail;
+use Src\Landings\Repositories\LeadRepository;
 
 class LeadService extends Service
 {

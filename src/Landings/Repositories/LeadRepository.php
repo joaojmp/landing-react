@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Landings;
+namespace Src\Landings\Repositories;
 
 use Src\Repository;
-use Src\Landings\Landing;
+use Src\Landings\Models\Lead;
 
-class LandingRepository extends Repository
+class LeadRepository extends Repository
 {
     /**
      * Abstract method to define the Eloquent model class name.
@@ -14,6 +14,6 @@ class LandingRepository extends Repository
      */
     protected function model(): string
     {
-        return Landing::class;
+        return Lead::class;
     }
 }

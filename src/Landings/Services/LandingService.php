@@ -1,13 +1,25 @@
 <?php
 
-namespace Src\Landings;
+namespace Src\Landings\Services;
 
 use Src\Service;
-use Src\Leads\LeadService;
-use Src\Landings\LandingRepository;
+use Src\Landings\Services\LeadService;
+use Src\Landings\Services\PageService;
+use Src\Landings\Repositories\LandingRepository;
 
 class LandingService extends Service
 {
+    /**
+     * Specify relations included in create and update.
+     *
+     * @var array
+     */
+    protected array $relations = [
+        "pages" => [
+            "type" => "oneToMany"
+        ],
+    ];
+
     /**
      * Array to store file configurations.
      *
@@ -66,7 +78,15 @@ class LandingService extends Service
      */
     public function delete(int $id): void
     {
-        $landing = $this->repository->with("leads")->find($id);
+        $landing = $this->repository->with(["pages", "leads"])->find($id);
+
+        if ($landing->pages->count()) {
+            $pageService = new PageService();
+
+            foreach ($landing->pages as $page) {
+                $pageService->delete($page->id);
+            }
+        }
 
         if ($landing->leads->count()) {
             $leadService = new LeadService();

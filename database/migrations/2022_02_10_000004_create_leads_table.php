@@ -1,6 +1,6 @@
 <?php
 
-use Src\Landings\Landing;
+use Src\Landings\Models\Landing;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

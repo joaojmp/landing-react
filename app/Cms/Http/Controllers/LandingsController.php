@@ -6,10 +6,10 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\File;
 use Illuminate\Support\Arr;
-use Src\Landings\LandingService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\RedirectResponse;
 use App\Cms\Http\Controllers\Controller;
+use Src\Landings\Services\LandingService;
 
 class LandingsController extends Controller
 {
@@ -76,7 +76,7 @@ class LandingsController extends Controller
      */
     public function editor(int $id): Response|RedirectResponse
     {
-        $landing = $this->service->find($id);
+        $landing = $this->service->with("pages")->find($id);
 
         if (!$landing) {
             return redirect()->route('leadings.index');

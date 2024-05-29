@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Leads\Mail;
+namespace Src\Landings\Mail;
 
-use Src\Leads\Lead;
+use Src\Landings\Models\Lead;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

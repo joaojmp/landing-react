@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Api\Http\Controllers\LeadsController;
+use App\Api\Http\Controllers\PagesController;
 use App\Api\Http\Controllers\UsersController;
 use App\Api\Http\Controllers\LandingsController;
 
@@ -17,6 +18,10 @@ use App\Api\Http\Controllers\LandingsController;
 */
 
 Route::apiResource("/landings", LandingsController::class, [
+    'as' => 'api'
+]);
+
+Route::apiResource("/landings/pages", PagesController::class, [
     'as' => 'api'
 ]);
 

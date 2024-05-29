@@ -4,7 +4,7 @@ namespace App\Cms\Http\Controllers;
 
 use Inertia\Inertia;
 use Inertia\Response;
-use Src\Leads\LeadService;
+use Src\Landings\Services\LeadService;
 use App\Cms\Http\Controllers\Controller;
 
 class LeadsController extends Controller

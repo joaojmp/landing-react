@@ -4,8 +4,8 @@ namespace App\Web\Http\Controllers;
 
 use Inertia\Inertia;
 use Inertia\Response;
-use Src\Landings\LandingService;
 use App\Core\Http\Controllers\Controller;
+use Src\Landings\Services\LandingService;
 
 class IndexController extends Controller
 {

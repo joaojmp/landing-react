@@ -2,7 +2,7 @@
 
 namespace App\Api\Http\Controllers;
 
-use Src\Leads\LeadService;
+use Src\Landings\Services\LeadService;
 use App\Api\Http\Controllers\Controller;
 
 class LeadsController extends Controller

@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Leads;
+namespace Src\Landings\Models;
 
-use Src\Landings\Landing;
+use Src\Landings\Models\Landing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

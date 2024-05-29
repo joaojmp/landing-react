@@ -1,19 +1,23 @@
 <?php
 
-namespace Src\Landings;
+namespace Src\Landings\Models;
 
-use Src\leads\Lead;
-use Illuminate\Support\Str;
+use Src\Landings\Models\Landing;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Landing extends Model
+class Page extends Model
 {
+    /**
+     * The table associated with the model.
+     */
+    protected $table = "landing_pages";
+
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        "slug", "title", "description", "image", "favicon", "emails", "script_head", "script_body", "content", "html", "css", "js",
+        "content", "html", "css", "js", "landing_id",
     ];
 
     /**
@@ -27,22 +31,17 @@ class Landing extends Model
     // Relationships
 
     /**
-     * Get all of the leads for the Landing
+     * Get the landing that owns the Page
      *
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function leads(): HasMany
+    public function landing(): BelongsTo
     {
-        return $this->hasMany(Lead::class);
+        return $this->belongsTo(Landing::class);
     }
 
 
     // Getters and Setters
-
-    public function getEmailsAttribute(?string $value): ?array
-    {
-        return is_null($value) ? $value : explode(",", $value);
-    }
 
     public function getHtmlAttribute(?string $value): ?string
     {
@@ -70,11 +69,6 @@ class Landing extends Model
         return count($matches) ? $matches[0] : null;
     }
 
-
-    public function setEmailsAttribute(?array $value): void
-    {
-        $this->attributes["emails"] = $value && count($value) ? implode(",", $value) : null;
-    }
 
     public function setHtmlAttribute(?string $value): void
     {

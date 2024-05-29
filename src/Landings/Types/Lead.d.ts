@@ -1,4 +1,4 @@
-import { Landing } from "../../Landings/Types/Landing";
+import { Landing } from "./Landing";
 
 export type Lead = {
     id: number;
