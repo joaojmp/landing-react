@@ -2,6 +2,7 @@
 
 namespace Src\Landings\Models;
 
+use Illuminate\Support\Str;
 use Src\Landings\Models\Landing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +18,7 @@ class Page extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        "content", "html", "css", "js", "landing_id",
+        "slug", "name", "html", "css", "js", "order", "landing_id",
     ];
 
     /**
@@ -69,6 +70,12 @@ class Page extends Model
         return count($matches) ? $matches[0] : null;
     }
 
+
+    public function setNameAttribute(string $value): void
+    {
+        $this->attributes["name"] = $value;
+        $this->attributes["slug"] = Str::slug($value);
+    }
 
     public function setHtmlAttribute(?string $value): void
     {

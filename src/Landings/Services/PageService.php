@@ -16,4 +16,18 @@ class PageService extends Service
     {
         return PageRepository::class;
     }
+
+    /**
+     * Reorders items based on the provided array of IDs.
+     *
+     * @param array $ids An array containing the IDs of items to be reordered.
+     *
+     * @return void
+     */
+    public function reorder(array $ids): void
+    {
+        foreach ($ids as $index => $id) {
+            $this->repository->update(["order" => $index], $id);
+        }
+    }
 }

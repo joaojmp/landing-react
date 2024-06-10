@@ -21,6 +21,7 @@ Route::apiResource("/landings", LandingsController::class, [
     'as' => 'api'
 ]);
 
+Route::put("/landings/pages/reorder", [PagesController::class, "reorder"])->name("api.landings.pages.reorder");
 Route::apiResource("/landings/pages", PagesController::class, [
     'as' => 'api'
 ]);

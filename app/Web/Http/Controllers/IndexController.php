@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Core\Http\Controllers\Controller;
 use Src\Landings\Services\LandingService;
+use stdClass;
 
 class IndexController extends Controller
 {
@@ -25,16 +26,23 @@ class IndexController extends Controller
     /**
      * Display the index view.
      */
-    public function index(string $slug): Response
+    public function index(string $slug, string $slugTwo = null): Response
     {
-        $landing = $this->service->findBySlug($slug);
+        $landing = $this->service->with(["pages" => function ($query) {
+            $query->with("landing")->orderBy("order");
+        }])->where("slug", $slug)->first();
 
         if (!$landing) {
             return abort(404);
         }
 
-        view()->share('landing', $landing);
+        $page = $slugTwo ? $landing->pages->where('slug', $slugTwo)->first() : $landing->pages->first();
 
-        return Inertia::render('Index', ['landing' => $landing]);
+        $content = new stdClass;
+        $content->landing = $landing;
+        $content->page = $page;
+        view()->share('content', $content);
+
+        return Inertia::render('Index', ['page' => $page]);
     }
 }

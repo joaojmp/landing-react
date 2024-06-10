@@ -4,7 +4,7 @@ namespace App\Api\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Src\Landings\Services\PageService;
@@ -23,25 +23,18 @@ class PagesController extends Controller
     }
 
     /**
-     * Update an existing object using the provided request data and return a JSON response.
+     * Reorder function based on the provided IDs.
      *
-     * @param Request $request The HTTP request instance.
-     * @param int     $id      The ID of the object to update.
-     *
-     * @return JsonResponse
+     * @param Request  $request
+     * 
+     * @return Response
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function reorder(Request $request): Response
     {
         try {
-            $object = $this->service->update([
-                "content" => $request->content,
-                "html" => $request->html,
-                "css" => $request->css,
-                "js" => $request->js,
-                "landing_id" => $request->landing_id,
-            ], $id);
+            $this->service->reorder($request->ids);
 
-            return $this->json($object);
+            return $this->noContent();
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -51,7 +44,7 @@ class PagesController extends Controller
                 Log::error($e->getMessage());
             }
 
-            return $this->badRequest($this->getMessage($e, 'Não foi possível atualizar.'));
+            return response("Não foi possível reordenar as páginas.", 400);
         }
     }
 }

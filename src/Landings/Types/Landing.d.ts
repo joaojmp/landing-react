@@ -11,6 +11,7 @@ export type Landing = {
     emails?: string[];
     script_head?: string;
     script_body?: string;
+    content?: string;
     pages: Page[];
     leads: Lead[];
 }

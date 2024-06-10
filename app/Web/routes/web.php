@@ -14,4 +14,4 @@ use App\Web\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/{slug}', [IndexController::class, "index"])->name("web.home");
+Route::get('/{slug}/{slugTwo?}', [IndexController::class, "index"])->name("web.home");

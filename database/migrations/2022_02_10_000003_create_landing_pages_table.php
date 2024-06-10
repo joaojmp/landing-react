@@ -14,10 +14,12 @@ return new class extends Migration
     {
         Schema::create('landing_pages', function (Blueprint $table) {
             $table->id();
-            $table->json('content')->nullable();
+            $table->string('slug');
+            $table->string('name');
             $table->json('html')->nullable();
             $table->json('css')->nullable();
             $table->json('js')->nullable();
+            $table->integer('order')->default(9999);
             $table->foreignIdFor(Landing::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

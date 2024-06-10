@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Head } from "@inertiajs/react";
-import { Landing } from "@/src/Landings/Types/Landing";
+import { Page } from "@/src/Landings/Types/Page";
 
 import "../../sass/app.scss";
 
-export default function Index({ landing }: { landing: Landing; }) {
+export default function Index({ page }: { page: Page; }) {
     const [formData, setFormData] = useState({});
 
     const handleInputChange = (e: any) => {
@@ -27,7 +27,7 @@ export default function Index({ landing }: { landing: Landing; }) {
 
         axios.post(route("api.leads.store"), {
             data: formData,
-            landing_id: landing.id
+            landing_id: page.landing.id
         }, {
             headers: {
                 'Content-Type': 'application/json',
@@ -75,9 +75,9 @@ export default function Index({ landing }: { landing: Landing; }) {
     }, [formData]);
 
     useEffect(() => {
-        if (landing.js) {
+        if (page.js) {
             const script = document.createElement("script");
-            script.textContent = landing.js;
+            script.textContent = page.js;
 
             document.body.appendChild(script);
         }
@@ -86,11 +86,11 @@ export default function Index({ landing }: { landing: Landing; }) {
     return (
         <>
             <Head>
-                <title>{landing.title}</title>
-                <meta name="description" content={landing.description} />
+                <title>{page.name}</title>
+                <meta name="description" content={page.landing.description} />
             </Head>
 
-            <div dangerouslySetInnerHTML={{ __html: landing.html || "" }} />
+            <div dangerouslySetInnerHTML={{ __html: page.html || "" }} />
         </>
     );
 };

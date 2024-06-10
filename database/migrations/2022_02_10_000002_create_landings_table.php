@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('emails')->nullable();
             $table->text('script_head')->nullable();
             $table->text('script_body')->nullable();
+            $table->json('content')->nullable();
             $table->timestamps();
         });
     }

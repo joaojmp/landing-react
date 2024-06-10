@@ -8,6 +8,7 @@ use Illuminate\Http\File;
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\RedirectResponse;
+use Src\Landings\Services\PageService;
 use App\Cms\Http\Controllers\Controller;
 use Src\Landings\Services\LandingService;
 
@@ -29,13 +30,22 @@ class LandingsController extends Controller
     ];
 
     /**
+     * @param PageService
+     */
+    protected PageService $pageService;
+
+    /**
      * Controller constructor.
      *
      * @param LandingService $service
+     * @param PageService $pageService
      */
-    public function __construct(LandingService $service)
-    {
+    public function __construct(
+        LandingService $service,
+        PageService $pageService
+    ) {
         parent::__construct($service);
+        $this->pageService = $pageService;
     }
 
     /**
@@ -76,7 +86,9 @@ class LandingsController extends Controller
      */
     public function editor(int $id): Response|RedirectResponse
     {
-        $landing = $this->service->with("pages")->find($id);
+        $landing = $this->service->with(["pages" => function ($query) {
+            $query->orderBy("order");
+        }])->find($id);
 
         if (!$landing) {
             return redirect()->route('leadings.index');
@@ -92,7 +104,7 @@ class LandingsController extends Controller
      */
     public function clone(int $id): RedirectResponse
     {
-        $landing = $this->service->find($id);
+        $landing = $this->service->with("pages")->find($id);
 
         if (!$landing) {
             return redirect()->route('leadings.index');
@@ -120,7 +132,19 @@ class LandingsController extends Controller
             $attributes["favicon"] = self::fromBase64('data:image/' . $type . ';base64,' . base64_encode($data));
         }
 
-        $this->service->create($attributes);
+        $newLanding = $this->service->create($attributes);
+
+        if ($landing->pages->count()) {
+            foreach ($landing->pages as $page) {
+                $attributes = $page->getAttributes();
+                unset($attributes["id"]);
+                unset($attributes["created_at"]);
+                unset($attributes["updated_at"]);
+                $attributes["landing_id"] = $newLanding->id;
+
+                $this->pageService->create($attributes);
+            }
+        }
 
         return redirect()->back();
     }
