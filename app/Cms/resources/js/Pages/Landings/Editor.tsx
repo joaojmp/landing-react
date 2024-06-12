@@ -1,8 +1,8 @@
 import { PageProps } from '@cms/types';
 import { Head } from '@inertiajs/react';
 import { Landing } from '@/src/Landings/Types/Landing';
-import GrapeJsEditor from '@cms/Components/GrapeJsEditor';
 import GlobalDndContext from '@cms/Components/GlobalDndContext';
+import GrapeJsEditor from '@cms/Components/grapejs/GrapeJsEditor';
 
 export default function Edit({ auth, landing }: PageProps & { landing: Landing }) {
     return (

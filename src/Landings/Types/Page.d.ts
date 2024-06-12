@@ -2,7 +2,9 @@ import { Landing } from "./Landing";
 
 export type Page = {
     id: number;
-    name: string;
+    slug: string;
+    title: string;
+    description?: string;
     html?: string;
     css?: string;
     js?: string;

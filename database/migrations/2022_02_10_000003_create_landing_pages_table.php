@@ -15,7 +15,8 @@ return new class extends Migration
         Schema::create('landing_pages', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
-            $table->string('name');
+            $table->string('title')->unique();
+            $table->text('description')->nullable();
             $table->json('html')->nullable();
             $table->json('css')->nullable();
             $table->json('js')->nullable();

@@ -303,26 +303,6 @@ export default function Update({ object }: { object: Landing }) {
                         </form>
                     </CardContent>
                 </Card>
-
-                <Card className="mt-6">
-                    <CardHeader>
-                        <h2 className="text-xl font-bold">Códigos da página</h2>
-                        <p className="text-sm">Somente para visualização</p>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="grid md:grid-cols-3 gap-6">
-                            <textarea rows={10} className="rounded-lg">
-                                {object.html}
-                            </textarea>
-                            <textarea rows={10} className="rounded-lg">
-                                {object.css}
-                            </textarea>
-                            <textarea rows={10} className="rounded-lg">
-                                {object.js}
-                            </textarea>
-                        </div>
-                    </CardContent>
-                </Card>
             </section>
         </>
     );

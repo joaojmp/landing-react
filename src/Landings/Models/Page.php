@@ -18,7 +18,7 @@ class Page extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        "slug", "name", "html", "css", "js", "order", "landing_id",
+        "slug", "title", "description", "html", "css", "js", "order", "landing_id",
     ];
 
     /**
@@ -71,9 +71,9 @@ class Page extends Model
     }
 
 
-    public function setNameAttribute(string $value): void
+    public function setTitleAttribute(string $value): void
     {
-        $this->attributes["name"] = $value;
+        $this->attributes["title"] = $value;
         $this->attributes["slug"] = Str::slug($value);
     }
 
